@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SimpleRSSReaderActivity!</string>
+    <string name="app_name">Avenue225</string>
+    <color name="yellow">#faa00e</color>
+    <color name="yellowLight">#fbb533</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="hint_color">#b06100</color>
+</resources>
