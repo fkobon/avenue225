@@ -7,6 +7,7 @@ import net.evoir.avenue225.R;
 import net.evoir.avenue225.adapters.PostAdapter.ViewHolder;
 import net.evoir.avenue225.objects.Category;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 				holder.title.setText(menu.get(position).getTitle());
 				holder.title.setText(menu.get(position).getTitle());
 				convertView.setTag(holder);
+				//convertView.setClickable(false);
 				
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -138,5 +140,16 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 		ImageView image;
 	}
 
+	/* override native methods of BaseAdapter "areAllItemsEnabled"
+	and "isEnabled" in order to set Header unclickable*/
+	@Override
+	public boolean areAllItemsEnabled(){
+		return false;
+	}
+	
+	@Override 
+	public boolean isEnabled(int position) {
+		return (TYPE_HEADER==menu.get(position).getType())?false:true;
+	}
 
 }

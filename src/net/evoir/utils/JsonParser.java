@@ -1,4 +1,4 @@
-package net.evoir.parsers;
+package net.evoir.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

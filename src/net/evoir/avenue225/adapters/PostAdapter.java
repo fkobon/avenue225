@@ -1,16 +1,12 @@
 package net.evoir.avenue225.adapters;
 
 import java.net.URLEncoder;
-import java.util.Comparator;
 import java.util.List;
 
 import com.squareup.picasso.Picasso;
 
 import net.evoir.avenue225.DateFormat;
 import net.evoir.avenue225.R;
-import net.evoir.avenue225.R.drawable;
-import net.evoir.avenue225.R.id;
-import net.evoir.avenue225.R.layout;
 import net.evoir.avenue225.objects.Post;
 import android.content.Context;
 import android.util.Log;
@@ -60,12 +56,12 @@ public class PostAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		//Picasso.with(context).load(UrlEncode(items.get(position).getImage())).into(holder.image);
-		Picasso.with(context).load(items.get(position).getImage()).placeholder(android.R.drawable.ic_menu_camera).error(R.drawable.logo).resize(300,200).into(holder.image);
+		Picasso.with(context).load(items.get(position).getImage()).placeholder(android.R.drawable.ic_menu_camera).error(android.R.drawable.ic_menu_camera).resize(300,200).into(holder.image);
 		//Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(holder.image);
 /*		Log.v("mytag"," title is " +items.get(position).getTitle());
 		Log.v("mytag"," image url is " +items.get(position).getImage());
 		Log.v("mytag"," link is " +items.get(position).getLink());*/
-		Log.v("mytag"," image url is " +items.get(position).getImage());
+		//Log.v("mytag"," image url is " +items.get(position).getImage());
 		holder.title.setText(items.get(position).getTitle());
 		//holder.description.setText(items.get(position).getDescription());
 		DateFormat dateFormat= new DateFormat();

@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     TextView text;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle args) {
-        View view = inflater.inflate(R.layout.home_activity, container, false);
+        View view = inflater.inflate(R.layout.main_activity, container, false);
         
 		return view;
     }

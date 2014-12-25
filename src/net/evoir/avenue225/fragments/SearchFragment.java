@@ -1,6 +1,7 @@
 package net.evoir.avenue225.fragments;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
@@ -36,7 +37,7 @@ public class SearchFragment extends Fragment {
     TextView text;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle args) {
-        View view = inflater.inflate(R.layout.home_activity, container, false);
+        View view = inflater.inflate(R.layout.main_activity, container, false);
         
 		return view;
     }
@@ -88,8 +89,28 @@ public class SearchFragment extends Fragment {
 		                @Override
 		                public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		                    post = postList.get(position);
-		                    Intent intent = new Intent(mContext, PostDetailActivity.class);
-		                    intent.putExtra("link", post.getLink());
+
+		                    ArrayList<String> postString = new ArrayList<String>();
+		                    
+		                    //adding postsList to newly created ArrayList : parcelablePosts
+		                    
+		                    for(int i = 0; i < postList.size(); i++){
+		        	        	
+		        				//Log.v("mytag","category "+ i+" is "+listPosts.get(i).getCategory());
+		                		Log.v("mytag","On CategoryFragment, stringList #"+i+" is "+postList.get(i).getLink());
+
+		        				String postLink = postList.get(i).getLink();
+		        				postString.add(postLink);
+
+		                    }    
+		                    Log.v("mytag","On CategoryFragment, stringList contains "+postString.size()+" items");
+		                    
+		                    //post = postList.get(position);
+		                    
+		                    
+		                    Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+		                    intent.putExtra("tabPosition", position);
+		                    intent.putStringArrayListExtra("posts", postString);
 		                    startActivity(intent);
 		                }
 

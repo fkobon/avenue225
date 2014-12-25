@@ -48,7 +48,7 @@
         </activity>
         
         <!-- Service -->
-          <service android:name=".JsonService" />
+          <service android:name="net.evoir.utils.JsonService" />
                  
     </application>
 

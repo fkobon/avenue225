@@ -6,10 +6,7 @@ import net.evoir.avenue225.db.Model;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.stmt.UpdateBuilder;
@@ -149,6 +146,7 @@ public class Post {
            	updateBuilder.updateColumnValue("status",status );
         	// update
            	updateBuilder.update();
+           	this.status= status;
 
            } catch (SQLException e) {
                Log.e("Task EditActivity", e.getMessage());

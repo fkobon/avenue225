@@ -1,46 +1,24 @@
-package net.evoir.avenue225;
+package net.evoir.utils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.evoir.avenue225.Constants;
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
-import net.evoir.parsers.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.IntentService;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-
 import android.util.Log;
 
-public class JsonService extends IntentService {
-	private Context mContext;
-	
-	public JsonService() {
-		super("JsonService");
-		
-	}
+public class AsyncDataLoading  extends AsyncTask<Void, Void, Void> {
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		Log.v(Constants.TAG, "Service started");
-		new PrefetchData(mContext).execute();
-	}
-	
-    /**
-     * Async Task to make http call
-     */
-
-}
-class PrefetchData  extends AsyncTask<Void, Void, Void> {
-
-	private static final String JSON_LINK = "http://avenue225.com/json";
+	private static final String JSON_LINK = "http://www.avenue225.com/json";
 	private JSONArray posts = null;
 
 	//JSON Node names
@@ -54,7 +32,7 @@ class PrefetchData  extends AsyncTask<Void, Void, Void> {
 	private static final String TAG_CATEGORY_SLUG = "categorySlug";
 	private Context mContext;
 	 
-    public PrefetchData(Context mContext) {
+    public AsyncDataLoading(Context mContext) {
 		// TODO Auto-generated constructor stub
     	mContext = this.mContext;
 	}
@@ -94,6 +72,7 @@ class PrefetchData  extends AsyncTask<Void, Void, Void> {
 			posts = parser.getJSONFromUrl(jsonLink);
 			List<Post> postList = new ArrayList<Post>();
 
+			if (posts!=null) {
 			Log.v("mytag","posts contains "+posts.length()+" items");						
 
 		    // looping through All Contacts
@@ -139,6 +118,10 @@ class PrefetchData  extends AsyncTask<Void, Void, Void> {
 	    			categorySlug = null;
 				}     
 		    }
+			}else {
+				Log.v("mytag","on JsonDownload posts contains 0 items");						
+
+			}
 		} catch (JSONException e) {
 			Log.v("mytag",e.getMessage());						
 

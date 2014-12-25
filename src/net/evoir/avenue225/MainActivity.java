@@ -11,9 +11,9 @@ import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.fragments.AboutFragment;
 import net.evoir.avenue225.fragments.CategoryFragment;
 import net.evoir.avenue225.fragments.FavorisFragment;
-import net.evoir.avenue225.fragments.HomeFragment;
 import net.evoir.avenue225.fragments.SearchFragment;
 import net.evoir.avenue225.fragments.SendFragment;
+import net.evoir.avenue225.fragments.SyncFragment;
 import net.evoir.avenue225.objects.Category;
 import net.evoir.avenue225.objects.Post;
 import android.os.Bundle;
@@ -25,6 +25,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    
     setContentView(R.layout.category_list_layout);
         //menu = new String[]{"Home","Android","Windows","Linux","Raspberry Pi","WordPress","Videos","Contact Us"};
         mContext = this;  
@@ -56,10 +59,13 @@ public class MainActivity extends Activity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
          
           // Set the drawer toggle as the DrawerListener
-          mDrawerLayout.setDrawerListener(mDrawerToggle);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
           mDrawerList = (ListView) findViewById(R.id.left_drawer);
           
           finalCategories = buildCategories();
+          
+          
           adapter = new CategoryAdapter(mContext, finalCategories);	
           mDrawerList.setAdapter(adapter);
           adapter.notifyDataSetChanged();
@@ -74,26 +80,29 @@ public class MainActivity extends Activity {
                   R.string.app_name // nav drawer close - description for accessibility
           ){
               public void onDrawerClosed(View view) {
-                  // calling onPrepareOptionsMenu() to show action bar icons
-                  invalidateOptionsMenu();
-                  //save the current position of cursor
-                  //currentPosition = mDrawerList.getFirstVisiblePosition();
 
               }
    
               public void onDrawerOpened(View drawerView) {
                   // calling onPrepareOptionsMenu() to hide action bar icons
-                  invalidateOptionsMenu();
+                  //invalidateOptionsMenu();
                                     //recreating the adapter if we toggle the Drawer
+                  
+            	  /*Log.v("mytag", "Drawer was opened");
+                  onDrawerClickListener();*/
  
               }
+              
+               
           };
-          mDrawerLayout.setDrawerListener(mDrawerToggle);
-   
-          if (savedInstanceState == null) {
+          // set onClickListener on Drawer
+          onDrawerClickListener();
+          
               // on first time display view for first nav item
+          if (savedInstanceState == null) {
               displayHomeView();
           }
+          
 
   	}
   @Override
@@ -152,10 +161,12 @@ public class MainActivity extends Activity {
 	        Fragment aboutFragment = new AboutFragment();
 	        Fragment favorisFragment = new FavorisFragment();
 	        Fragment sendFragment = new SendFragment();
+	        Fragment syncFragment = new SyncFragment();
 	        categories.add(new Category("Options",0));
 	        categories.add(new Category(android.R.drawable.ic_menu_help,"About",1,aboutFragment));
 	        categories.add(new Category(android.R.drawable.ic_menu_send,"Send feedback",1,sendFragment));
 			categories.add(new Category(R.drawable.liked,"Favoris",2,favorisFragment));
+			categories.add(new Category(android.R.drawable.ic_popup_sync,"Synchroniser",1,syncFragment));
 	        
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,25 +181,34 @@ public class MainActivity extends Activity {
 
 
 
+private void onDrawerClickListener() {
 
-private void displayHomeView() {
-	// TODO Auto-generated method stub
-	    
-      //home fragment
-      Fragment home = new HomeFragment();
-      FragmentManager fragmentManager = getFragmentManager();
-      fragmentManager.beginTransaction().replace(R.id.content_frame, home).commit();
-      mDrawerList.setOnItemClickListener(new OnItemClickListener(){
+    mDrawerList.setOnItemClickListener(new OnItemClickListener(){
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+        Log.v("mytag", "selectItem() was called");
+
     	selectItem(position);        	
     }
   });
 }
 
+private void displayHomeView() {
+	// TODO Auto-generated method stub
+	  Log.v("mytag", "displayHomeView() called");  
+      //home fragment
+	  
+      Fragment home = new CategoryFragment();
+      FragmentManager fragmentManager = getFragmentManager();      
+      fragmentManager.beginTransaction().replace(R.id.content_frame, home).commit();
+      
+
+}
+
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
       getMenuInflater().inflate(R.menu.options_menu, menu);
+      
       
       // Associate searchable configuration with the SearchView
       SearchManager searchManager =
@@ -255,20 +275,14 @@ private void displayHomeView() {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
       // toggle nav drawer on selecting action bar app icon/title
-      if (mDrawerToggle.onOptionsItemSelected(item)) {
-          return true;
+	      if (mDrawerToggle.onOptionsItemSelected(item)) {
+	    	// set onClickListener on Drawer
+              onDrawerClickListener();
+	      }
+		return true;
+ 
       }
-      // Handle action bar actions click
-      switch (item.getItemId()) {/*
-      case R.id.action_search:
-          return true;*/
-      case R.id.action_list:
-    	  displayHomeView();
-          return true;
-      default:
-          return super.onOptionsItemSelected(item);
-      }
-  }
+  
 
 
 
@@ -303,13 +317,17 @@ public void selectItem(int position)
       Bundle args = new Bundle();
       args.putString("category", categories.get(position).getTitle());
       args.putString("categorySlug", categories.get(position).getSlug());
+      args.putInt("categoryNumber", categories.get(position).getNumber(mContext));
       
       Fragment detail = new Fragment();
 
       if(categories.get(position).getType()==1){
     	  detail = (Fragment) categories.get(position).getMethod();
     	  
-    	  // change app menu title
+    	  /*
+    	   * TODO
+    	   * refine the logic and clear unused lines
+    	   * */
     	  if(categories.get(position).getNumber(mContext)<=0) {
     		  setTitle(categories.get(position).getTitle());
     		  
