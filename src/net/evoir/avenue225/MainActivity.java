@@ -23,9 +23,11 @@ import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +43,6 @@ public class MainActivity extends Activity {
        private ListView mDrawerList;
        private static Dao<Post, String> dao;
        private ArrayList<Category> categories = new ArrayList<Category>();
-       private ArrayList<Category> finalCategories = new ArrayList<Category>();
        private List<Post> listPosts;
        private Context mContext;
        private CategoryAdapter adapter;
@@ -52,55 +53,60 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
     
     setContentView(R.layout.category_list_layout);
-        //menu = new String[]{"Home","Android","Windows","Linux","Raspberry Pi","WordPress","Videos","Contact Us"};
-        mContext = this;  
-    	
-        
+		//menu = new String[]{"Home","Android","Windows","Linux","Raspberry Pi","WordPress","Videos","Contact Us"};
+		mContext = this;  
+		
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-         
-          // Set the drawer toggle as the DrawerListener
+		 
+		  // Set the drawer toggle as the DrawerListener
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-          mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+	
+	// change drawer width
+	 mDrawerList.post(new Runnable() {
+	        @Override
+	        public void run() {
+	            Resources resources = getResources();
+	            float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 320, resources.getDisplayMetrics());
+	            DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) mDrawerList.getLayoutParams();
+	            params.width = (int) (width);
+	            mDrawerList.setLayoutParams(params);
+	        }
+	    });
           
-          finalCategories = buildCategories();
+		//finalCategories = getCategories();
           
           
-          adapter = new CategoryAdapter(mContext, finalCategories);	
-          mDrawerList.setAdapter(adapter);
-          adapter.notifyDataSetChanged();
+		reloadDrawerCategories();
           
-          getActionBar().setDisplayHomeAsUpEnabled(true);
-          getActionBar().setHomeButtonEnabled(true);
-          getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_orange));
+	      getActionBar().setDisplayHomeAsUpEnabled(true);
+	      getActionBar().setHomeButtonEnabled(true);
+	      getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_orange));
    
           mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                   R.drawable.ic_drawer, //nav menu toggle icon
-                  R.string.app_name, // nav drawer open - description for accessibility
-                  R.string.app_name // nav drawer close - description for accessibility
+          R.string.app_name, // nav drawer open - description for accessibility
+          R.string.app_name // nav drawer close - description for accessibility
           ){
               public void onDrawerClosed(View view) {
 
               }
    
               public void onDrawerOpened(View drawerView) {
-                  // calling onPrepareOptionsMenu() to hide action bar icons
-                  //invalidateOptionsMenu();
-                                    //recreating the adapter if we toggle the Drawer
-                  
-            	  /*Log.v("mytag", "Drawer was opened");
-                  onDrawerClickListener();*/
- 
+
+    	  
               }
-              
-               
-          };
+      
+       
+  };
           // set onClickListener on Drawer
           onDrawerClickListener();
           
               // on first time display view for first nav item
           if (savedInstanceState == null) {
-              displayHomeView();
+              loadHomeFragment();
           }
           
 
@@ -110,7 +116,7 @@ public class MainActivity extends Activity {
   {		 
 	  super.onPause();
 	  savedPosition = mDrawerList.getFirstVisiblePosition();
-     // store index using shared preferences   
+	  reloadDrawerCategories();
   }
   
   @Override
@@ -120,18 +126,14 @@ public class MainActivity extends Activity {
 
   if(mDrawerList != null){
       if(mDrawerList.getCount() > savedPosition) {
-          adapter.clear();
-          adapter = new CategoryAdapter(mContext, buildCategories());	
-          //adapter.notifyDataSetChanged();
-          mDrawerList.setAdapter(adapter);
-          adapter.notifyDataSetChanged();
+
           mDrawerList.setSelectionFromTop(savedPosition, 0);
       }
       else{
           mDrawerList.setSelectionFromTop(0,0);}
   	}
   }
-  private ArrayList<Category> buildCategories() {
+  private ArrayList<Category> getCategories() {
 	// TODO Auto-generated method stub
 		try {
 			dao = Model.getHelper(mContext).getDao(Post.class);
@@ -139,10 +141,6 @@ public class MainActivity extends Activity {
 	    	dao.queryBuilder();
 			//get posts from database and group them by category
 			listPosts = queryBuilder.groupBy("category").query();
-			//inflate the category arrayList<String> with every post.getCategory 
-			//Log.v("mytag","there are "+listPosts.size()+" categories");
-			
-			// convert List<String> to String[]
         	
 			categories.clear();
 			categories.add(new Category("Menu",0));
@@ -177,7 +175,20 @@ public class MainActivity extends Activity {
 	
 }
 
+private void reloadDrawerCategories() {
+	// check if the adapter has already been declared
+	if(adapter!=null){
+		adapter.clear();
+	    adapter = new CategoryAdapter(mContext, getCategories());	
+	    mDrawerList.setAdapter(adapter);
+	    adapter.notifyDataSetChanged();
+	}else {
+	    adapter = new CategoryAdapter(mContext, getCategories());	
+	    mDrawerList.setAdapter(adapter);
+	    adapter.notifyDataSetChanged();		
+	}
 
+}
 
 
 
@@ -193,18 +204,51 @@ private void onDrawerClickListener() {
   });
 }
 
-private void displayHomeView() {
+private void loadHomeFragment() {
 	// TODO Auto-generated method stub
-	  Log.v("mytag", "displayHomeView() called");  
+	  Log.v("mytag", "loadHomeFragment() called");  
       //home fragment
 	  
-      Fragment home = new CategoryFragment();
+	  
+      Fragment home;
+      if(isDataBaseNotEmtpy()) {
+    	  Bundle args = new Bundle();
+    	  args.putString("isFirstTime", "true");
+          home = new SyncFragment();
+          home.setArguments(args);
+
+
+      }else {
+    	  home = new CategoryFragment();
+      }
       FragmentManager fragmentManager = getFragmentManager();      
       fragmentManager.beginTransaction().replace(R.id.content_frame, home).commit();
       
 
 }
 
+private boolean isDataBaseNotEmtpy() {
+	boolean answer=true;
+	List<Post> dbPostlist = null;
+	
+	try {
+		QueryBuilder<Post, String> queryBuilder =
+		    	dao.queryBuilder();
+		//get posts from database and group them by category
+		queryBuilder.limit(50);
+		dbPostlist = queryBuilder.query();
+		if (dbPostlist.size()>0){
+			answer=false;
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}	
+	return answer;
+}
+/** 
+ * SEARCH FUNCTIONALITY
+ * **/
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
       getMenuInflater().inflate(R.menu.options_menu, menu);
@@ -253,7 +297,7 @@ private void displayHomeView() {
 
           @Override
           public boolean onQueryTextChange(String s) {
-/*              ListView listView = (ListView) findViewById(R.id.main_listView);
+  /*              ListView listView = (ListView) findViewById(R.id.main_listView);
               listView.setTextFilterEnabled(true);
 
               if (s.isEmpty()) {
@@ -305,7 +349,7 @@ private void displayHomeView() {
 	  super.onConfigurationChanged(newConfig);
 	  // Pass any configuration change to the drawer toggls
 	  mDrawerToggle.onConfigurationChanged(newConfig);
-	  //adapter.notifyDataSetChanged();
+	  reloadDrawerCategories();
 	  
 	  
   }

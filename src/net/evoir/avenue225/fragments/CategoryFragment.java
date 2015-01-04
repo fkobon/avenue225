@@ -7,6 +7,7 @@ import java.util.List;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
+import net.evoir.avenue225.Constants;
 import net.evoir.avenue225.PostDetailActivity;
 import net.evoir.avenue225.R;
 import net.evoir.avenue225.adapters.PostAdapter;
@@ -95,6 +96,7 @@ public class CategoryFragment extends Fragment {
 
     public void showList(Context context) {
 		
+    	postList =loadList(context);
 		if (postList.size() >0) {
 			adapter = new PostAdapter(getActivity(), postList);
 
@@ -132,7 +134,7 @@ public class CategoryFragment extends Fragment {
 	        				postString.add(postLink);
 
 	                    }    
-	                    Log.v("mytag","On CategoryFragment, stringList contains "+postString.size()+" items");
+	                    Log.v(Constants.TAG,"On CategoryFragment, stringList contains "+postString.size()+" items");
 	                    
 	                    //post = postList.get(position);
 	                    
@@ -151,25 +153,27 @@ public class CategoryFragment extends Fragment {
 		}
     }
 	@SuppressWarnings("deprecation")
-	public void loadList(Context context) {
-		
+	public List<Post> loadList(Context context) {
+		List<Post> dbPostlist = null;
+
 		try {
 			dao = Model.getHelper(mContext).getDao(Post.class);
-	    	
+			//new list for storing result from database as "dbPostlist"
 	    	if (hasArguments) {
+	    		Log.v("mytag","start querying the Database on CategoryFragment.loadlist()");
 	    		QueryBuilder<Post, String> queryBuilder =
 	    		    	dao.queryBuilder();
 	    		//get posts from database and group them by category
 		    	queryBuilder.where().eq("categorySlug", categorySlug);
 		    	queryBuilder.orderBy("pubDate", false);
-				postList = queryBuilder.query();
+		    	dbPostlist = queryBuilder.query();
 	    	}else {
 	    		QueryBuilder<Post, String> queryBuilder =
 	    		    	dao.queryBuilder();
 	    		//get posts from database and group them by category
 		    	queryBuilder.orderBy("pubDate", false);
 		    	queryBuilder.limit(50);
-				postList = queryBuilder.query();
+		    	dbPostlist = queryBuilder.query();
 	    	}
 			
 
@@ -179,7 +183,7 @@ public class CategoryFragment extends Fragment {
 			Log.v("mytag"," Dao error" + e.getMessage());		
 		}
 		
-		
+		return dbPostlist;	
 	};
 	
     /*
@@ -192,7 +196,7 @@ public class CategoryFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             dialog.setMessage("Loading, please wait.");
-            //dialog.setProgressStyle(dialog.STYLE_SPINNER);
+            dialog.setProgressStyle(dialog.STYLE_SPINNER);
             dialog.show();
         }
          
@@ -212,7 +216,7 @@ public class CategoryFragment extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }*/
-        	loadList(mContext);
+        	//loadList(mContext);
             return null;
 
         }

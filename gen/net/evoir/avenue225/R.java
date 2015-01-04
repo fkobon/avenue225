@@ -12,10 +12,7 @@ public final class R {
         /**  Nav Drawer List Item Icons 
  Keep them in order as the titles are in 
          */
-        public static final int nav_drawer_icons=0x7f080001;
-        /**  Nav Drawer Menu Items 
-         */
-        public static final int nav_drawer_items=0x7f080000;
+        public static final int nav_drawer_icons=0x7f080000;
     }
     public static final class attr {
     }
@@ -59,13 +56,13 @@ public final class R {
         public static final int unliked=0x7f020012;
     }
     public static final class id {
-        public static final int action_add=0x7f0a0020;
-        public static final int action_list=0x7f0a001d;
-        public static final int action_search=0x7f0a001a;
-        public static final int action_share=0x7f0a001f;
-        public static final int action_status=0x7f0a001e;
+        public static final int action_add=0x7f0a0022;
+        public static final int action_list=0x7f0a001f;
+        public static final int action_search=0x7f0a001c;
+        public static final int action_share=0x7f0a0021;
+        public static final int action_status=0x7f0a0020;
         public static final int content_frame=0x7f0a0007;
-        public static final int copyrightText=0x7f0a0016;
+        public static final int copyrightText=0x7f0a0015;
         public static final int drawerImage_item=0x7f0a0002;
         public static final int drawerListItemWrapper=0x7f0a0000;
         public static final int drawerNumber=0x7f0a0005;
@@ -76,20 +73,22 @@ public final class R {
         public static final int linearLayout1=0x7f0a0003;
         public static final int linearLayout2=0x7f0a0001;
         public static final int linearLayout3=0x7f0a0011;
-        public static final int logoText=0x7f0a0017;
-        public static final int menu_delete=0x7f0a001c;
-        public static final int menu_edit=0x7f0a001b;
+        public static final int logoText=0x7f0a0016;
+        public static final int menu_delete=0x7f0a001e;
+        public static final int menu_edit=0x7f0a001d;
         public static final int postDescription_detail=0x7f0a000a;
         public static final int postDescription_item=0x7f0a0012;
         public static final int postDueDate_item=0x7f0a0013;
         public static final int postListItemWrapper=0x7f0a000d;
         public static final int postTitle_item=0x7f0a0010;
-        public static final int postsList=0x7f0a0015;
-        public static final int progressBar=0x7f0a0018;
-        public static final int progressBar1=0x7f0a0014;
+        public static final int postsList=0x7f0a0014;
+        public static final int progressBar=0x7f0a0019;
         public static final int relativeLayout1=0x7f0a000f;
+        public static final int reload_button=0x7f0a001b;
+        public static final int reload_progress=0x7f0a001a;
+        public static final int sloganText=0x7f0a0017;
         public static final int textHeader=0x7f0a000c;
-        public static final int versionText=0x7f0a0019;
+        public static final int versionText=0x7f0a0018;
         public static final int visitLink=0x7f0a000b;
         public static final int vpPager=0x7f0a0009;
     }
@@ -101,12 +100,12 @@ public final class R {
         public static final int detail_single_fragment=0x7f030004;
         public static final int header_view=0x7f030005;
         public static final int listview_item=0x7f030006;
-        public static final int loading_detail_fragment=0x7f030007;
-        public static final int main_activity=0x7f030008;
-        public static final int menu_detail_fragment=0x7f030009;
-        public static final int searchable=0x7f03000a;
-        public static final int separator_view=0x7f03000b;
-        public static final int splashscreen=0x7f03000c;
+        public static final int main_activity=0x7f030007;
+        public static final int menu_detail_fragment=0x7f030008;
+        public static final int searchable=0x7f030009;
+        public static final int separator_view=0x7f03000a;
+        public static final int splashscreen=0x7f03000b;
+        public static final int sync_fragment=0x7f03000c;
     }
     public static final class menu {
         public static final int home_menu=0x7f090000;
@@ -124,13 +123,16 @@ public final class R {
         public static final int app_name=0x7f060001;
         /**  Content Description 
          */
-        public static final int desc_list_item_icon=0x7f06000a;
+        public static final int desc_list_item_icon=0x7f06000b;
         public static final int drawer_close=0x7f060007;
         public static final int drawer_open=0x7f060006;
         public static final int feedback_text=0x7f060009;
         public static final int hello=0x7f060000;
-        public static final int hello_world=0x7f060005;
+        /**  Functions
+         */
+        public static final int reload_text=0x7f06000a;
         public static final int search_hint=0x7f060003;
+        public static final int splash_slogan=0x7f060005;
         public static final int version_text=0x7f060008;
     }
     public static final class xml {

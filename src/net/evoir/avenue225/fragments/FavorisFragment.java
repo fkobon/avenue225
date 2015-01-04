@@ -118,7 +118,7 @@ public class FavorisFragment extends Fragment {
 
 		            });	
 			} else {
-				Toast.makeText(context, "An error occured while downloading information. Check your network connection",
+				Toast.makeText(context, "No post has been liked yet. ",
 						Toast.LENGTH_LONG).show();
 			}
 		} catch (SQLException e) {

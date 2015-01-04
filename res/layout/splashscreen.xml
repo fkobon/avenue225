@@ -24,7 +24,7 @@
             android:id="@+id/logoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/progressBar"
+            android:layout_below="@+id/sloganText"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:shadowColor="@color/orange_black"
@@ -33,6 +33,22 @@
             android:textColor="@color/black"
             android:textSize="40sp"
             android:textStyle="bold" />
+       		
+       		<TextView
+            android:id="@+id/sloganText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            
+            android:text="@string/splash_slogan"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/versionText"
+            android:textSize="15sp"
+            android:paddingTop="70dp"
+            
+            />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -44,7 +60,7 @@
             android:paddingBottom="30dp"
             
             />
-
+<!-- hidden -->
 
         <TextView
             android:id="@+id/versionText"
@@ -57,7 +73,7 @@
             android:shadowRadius="1"
             android:text="@string/version_text"
             android:textColor="@color/black"
-            android:textSize="20sp" 
+            android:textSize="15sp" 
             android:layout_alignParentBottom="true"
             android:paddingBottom="30dp"
             />

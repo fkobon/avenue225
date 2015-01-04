@@ -12,6 +12,7 @@ import net.evoir.avenue225.objects.Post;
 import net.evoir.utils.JsonService;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,17 +20,20 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.TextView;
 
  
 public class SplashScreen extends Activity {
  
     private Context mContext;
-    private TextView versionText;
-	private TextView logoText;
-	private Dao <Post, Integer> dao;
+    private TextView versionText,logoText, sloganText;
+	private static Dao<Post, String> dao;
 	private List<Post> postList;
 	// Splash screen timer
     private static int SPLASH_TIME_OUT = 2000;
@@ -46,7 +50,12 @@ public class SplashScreen extends Activity {
         
         
         versionText = (TextView) this.findViewById(R.id.versionText);
-		versionText.setText(getVersion());
+        versionText.setText(getVersion());
+        
+        sloganText = (TextView) this.findViewById(R.id.sloganText);
+		sloganText.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+		
+		
 		
 		//prepare the Async task
 		loadAsync loadAsync = new loadAsync();
@@ -92,36 +101,48 @@ public class SplashScreen extends Activity {
          
         @Override
         protected Void doInBackground(Void... params) {
-        	try {
+        	
         		ConnectionDetector detector = new ConnectionDetector(mContext);
         		boolean isConnectingToInternet = detector.isConnectingToInternet();
         		if (isConnectingToInternet) {
+        			
+        			//start downloading feed silently 
+        			Log.v(Constants.TAG, "launch startService()");
+        			startService();
+        			
         			// check if there is at least one post in database
-        				try {
-        					dao = Model.getHelper(mContext).getDao(Post.class);
-        					postList = dao.queryForAll();
+
+        				try {   
+                			dao = Model.getHelper(mContext).getDao(Post.class);
+        					QueryBuilder<Post, String> queryBuilder =
+        		    		    	dao.queryBuilder();
+        		    		//get posts from database and group them by category
+        			    	queryBuilder.limit(10);
+        					postList = queryBuilder.query();
         					if (postList.size() <1) {
-        						SPLASH_TIME_OUT = 10000;
+        						SPLASH_TIME_OUT = 6000;
         					}
-        					else {
+        					/*else {
         						SPLASH_TIME_OUT = 4000;
-        					}
+        					}*/
         				} catch (SQLException e) {
         					// TODO Auto-generated catch block
         					e.printStackTrace();
         				}
-        				
-        			startService();
+        							
         		}
-         
-                Thread.sleep(SPLASH_TIME_OUT); // sleep for a certain period depending on network status
-                // shut down the activity
-                finish();
-                // launch home fragment
-                loadHomeFragment();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        		
+        		// Execute some code after some seconds have passed
+        	    Handler handler = new Handler(Looper.getMainLooper()); 
+        	    handler.postDelayed(new Runnable() {
+        	      @Override
+        	      public void run() { 
+      	        	// shut down the activity
+  	                finish(); 
+  	                // launch home fragment
+  	                loadHomeFragment();
+  	         }
+        	    }, SPLASH_TIME_OUT );
         	
             return null;
 
