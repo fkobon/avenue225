@@ -3,8 +3,7 @@
     android:id="@+id/postListItemWrapper"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="6dp"
-    
+    android:padding="6dp"    
     >
         
     <LinearLayout
@@ -39,7 +38,7 @@
             android:focusable="false"
             android:text="TextView"
             android:textColor="@color/orange_black"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textAllCaps="true"
             android:maxLines="3"
              />

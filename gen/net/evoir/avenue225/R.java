@@ -50,17 +50,20 @@ public final class R {
         public static final int logo=0x7f02000c;
         public static final int previous=0x7f02000d;
         public static final int radius_corner=0x7f02000e;
-        public static final int scrollbar_vertical_thumb=0x7f02000f;
-        public static final int share=0x7f020010;
-        public static final int trans=0x7f020011;
-        public static final int unliked=0x7f020012;
+        public static final int rounded_border_grey=0x7f02000f;
+        public static final int rounded_border_orange=0x7f020010;
+        public static final int scrollbar_vertical_thumb=0x7f020011;
+        public static final int share=0x7f020012;
+        public static final int trans=0x7f020013;
+        public static final int unliked=0x7f020014;
     }
     public static final class id {
-        public static final int action_add=0x7f0a0022;
-        public static final int action_list=0x7f0a001f;
+        public static final int action_add=0x7f0a0023;
+        public static final int action_list=0x7f0a0020;
         public static final int action_search=0x7f0a001c;
-        public static final int action_share=0x7f0a0021;
-        public static final int action_status=0x7f0a0020;
+        public static final int action_share=0x7f0a0022;
+        public static final int action_status=0x7f0a0021;
+        public static final int action_sync=0x7f0a001f;
         public static final int content_frame=0x7f0a0007;
         public static final int copyrightText=0x7f0a0015;
         public static final int drawerImage_item=0x7f0a0002;
@@ -123,11 +126,14 @@ public final class R {
         public static final int app_name=0x7f060001;
         /**  Content Description 
          */
-        public static final int desc_list_item_icon=0x7f06000b;
+        public static final int desc_list_item_icon=0x7f06000e;
+        public static final int download_error_text=0x7f06000c;
         public static final int drawer_close=0x7f060007;
         public static final int drawer_open=0x7f060006;
         public static final int feedback_text=0x7f060009;
         public static final int hello=0x7f060000;
+        public static final int loading_text=0x7f06000b;
+        public static final int network_error_text=0x7f06000d;
         /**  Functions
          */
         public static final int reload_text=0x7f06000a;

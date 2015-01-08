@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import org.jsoup.Jsoup;
 
 import com.j256.ormlite.dao.Dao;
-import net.evoir.avenue225.DateFormat;
 import net.evoir.avenue225.R;
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
+import net.evoir.utils.DateFormat;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

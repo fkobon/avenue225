@@ -22,7 +22,10 @@
     <string name="feedback_text">Send Feedback</string>
      
     <!-- Functions-->
-    <string name="reload_text">reload</string>
+    <string name="reload_text">Reload</string>
+    <string name="loading_text">Loading...</string>
+    <string name="download_error_text">Error while downloading. Check you connection and try again.</string>
+    <string name="network_error_text">No Internet! Please check your network connection.</string>
      
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->

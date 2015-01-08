@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" 
    	android:background="@drawable/gradient_orange"
-   	
-    xmlns:android="http://schemas.android.com/apk/res/android">
+   	>
     
  
 <!--
@@ -52,12 +54,12 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleInverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/versionText"
             android:layout_centerHorizontal="true"
             android:paddingBottom="30dp"
+            
             
             />
 <!-- hidden -->
@@ -77,4 +79,6 @@
             android:layout_alignParentBottom="true"
             android:paddingBottom="30dp"
             />
+
+
 </RelativeLayout>

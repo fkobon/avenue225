@@ -37,7 +37,7 @@ public class Post {
     private String categorySlug;
 	
 	@DatabaseField
-    private int status=0;
+    private int status =0;
     
     
     

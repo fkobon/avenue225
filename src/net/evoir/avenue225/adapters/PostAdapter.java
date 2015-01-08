@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.squareup.picasso.Picasso;
 
-import net.evoir.avenue225.DateFormat;
 import net.evoir.avenue225.R;
 import net.evoir.avenue225.objects.Post;
+import net.evoir.utils.Constants;
+import net.evoir.utils.DateFormat;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -55,17 +56,20 @@ public class PostAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		//Picasso.with(context).load(UrlEncode(items.get(position).getImage())).into(holder.image);
-		Picasso.with(context).load(items.get(position).getImage()).placeholder(android.R.drawable.ic_menu_camera).error(android.R.drawable.ic_menu_camera).resize(300,200).into(holder.image);
+		// make sure image is not empty
+		String itemImage =items.get(position).getImage();
+		Log.v(Constants.TAG,"imageItem "+position+ " is"+itemImage);
+		if (itemImage != null && !itemImage.isEmpty()){
+			Picasso.with(context).load(itemImage).placeholder(android.R.drawable.ic_menu_camera).error(android.R.drawable.ic_menu_camera).resize(300,200).into(holder.image);	
+		}
 		//Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(holder.image);
-/*		Log.v("mytag"," title is " +items.get(position).getTitle());
-		Log.v("mytag"," image url is " +items.get(position).getImage());
-		Log.v("mytag"," link is " +items.get(position).getLink());*/
-		//Log.v("mytag"," image url is " +items.get(position).getImage());
+
 		holder.title.setText(items.get(position).getTitle());
 		//holder.description.setText(items.get(position).getDescription());
 		DateFormat dateFormat= new DateFormat();
 		holder.pubDate.setText(dateFormat.Format(items.get(position).getPubDate()));
+		
+
 		return convertView;
 		}
 

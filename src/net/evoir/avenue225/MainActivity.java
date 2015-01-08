@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 	      getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_orange));
    
           mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                  R.drawable.ic_drawer, //nav menu toggle icon
+                  R.drawable.ic_drawer1, //nav menu toggle icon
           R.string.app_name, // nav drawer open - description for accessibility
           R.string.app_name // nav drawer close - description for accessibility
           ){
@@ -323,6 +323,16 @@ private boolean isDataBaseNotEmtpy() {
 	    	// set onClickListener on Drawer
               onDrawerClickListener();
 	      }
+	      
+	      if (item.getItemId() == R.id.action_sync) {
+	    	  Bundle args = new Bundle();
+	    	  args.putString("isFirstTime", "true");
+	          Fragment syncFragment = new SyncFragment();
+	          syncFragment.setArguments(args);
+		
+		      FragmentManager fragmentManager = getFragmentManager();      
+		      fragmentManager.beginTransaction().replace(R.id.content_frame, syncFragment).commit();
+	        }
 		return true;
  
       }

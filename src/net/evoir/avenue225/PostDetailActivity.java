@@ -117,7 +117,7 @@ public class PostDetailActivity extends FragmentActivity {
         if (item.getItemId() == R.id.action_share) {
         	Intent sendIntent = new Intent();
         	sendIntent.setAction(Intent.ACTION_SEND);
-        	sendIntent.putExtra(Intent.EXTRA_TEXT, "Lisez: "+ post.getTitle() +" > " + post.getLink()+" - Avenue225");
+        	sendIntent.putExtra(Intent.EXTRA_TEXT, "Lis vite cet article!"+ post.getTitle() +" > " + post.getLink()+" - Avenue225");
         	sendIntent.setType("text/plain");
         	startActivity(Intent.createChooser(sendIntent, "Partagez l'article"));
         }
@@ -147,7 +147,6 @@ public class PostDetailActivity extends FragmentActivity {
    
     public void unlikePost() {
     	menu.getItem(0).setIcon(R.drawable.unliked);
-    	Log.v("mytag", "status was "+post.getStatus()+" now status is "+STATUS_READ);
 
     	//status=STATUS_READ;
     	post.setStatus(STATUS_READ, mContext);

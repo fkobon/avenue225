@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-import net.evoir.avenue225.Constants;
 import net.evoir.avenue225.PostDetailActivity;
 import net.evoir.avenue225.R;
 import net.evoir.avenue225.adapters.PostAdapter;
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
+import net.evoir.utils.Constants;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +44,8 @@ public class CategoryFragment extends Fragment {
 	private Boolean hasArguments;
 	private PostAdapter adapter;
 	private View view;
-	
+	private int positionInListView;
+	private DialogInterface.OnClickListener dialogClickListener;
     TextView text;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle args) {
@@ -147,6 +152,21 @@ public class CategoryFragment extends Fragment {
 	            }
 
 	            });	
+			
+            /* set long click on ListView item             */
+			
+			listView.setLongClickable(true);
+    	    listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+    	        @Override
+    	        public boolean onItemLongClick(AdapterView<?> av, View v, int pos, long id) {
+    	        	
+    	        	/*Toast bread = Toast.makeText(mContext, "Post "+id+" link is "+postList.get(pos).getLink(), Toast.LENGTH_LONG);
+    	        	bread.show();*/
+    	        	deletePost((int)id);
+    	        	
+    	        	return true;                
+    				}
+    	    });
 		} else {
 			Toast.makeText(context, "0 posts found. Try with the search bar above or check your network connection",
 					Toast.LENGTH_LONG).show();
@@ -222,7 +242,55 @@ public class CategoryFragment extends Fragment {
         }
          
     }
-    
+    public void deletePost(int position){
+    	
+    	// handle answers
+        dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+            case DialogInterface.BUTTON_POSITIVE:
+            	// we set an update builder
+            	try {
+					dao = Model.getHelper(mContext).getDao(Post.class);
+	            	DeleteBuilder<Post, String> deleteBuilder = dao.deleteBuilder();
+	            	deleteBuilder.where().eq("link", postList.get(positionInListView).getLink());
+	            	deleteBuilder.delete();
+	            	
+	            	//update the ListView
+					postList.remove(positionInListView);
+                  	adapter.notifyDataSetChanged();
+	            	Toast.makeText(mContext, "Post has been deleted", Toast.LENGTH_LONG).show();
+	            	
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					
+					e.printStackTrace();
+				}
+
+            	
+                break;
+
+            case DialogInterface.BUTTON_NEGATIVE:
+                //No button clicked
+            	Toast.makeText(mContext, "Deletion canceled", Toast.LENGTH_LONG).show();
+                
+                break;
+            }
+        }
+    };
+    	positionInListView = position;
+    	// Ask a validation
+    	AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+    	// set title
+		builder.setTitle("Delete Post");
+        builder.setMessage("Do you really want to delete this post?").setPositiveButton("Yes", dialogClickListener)
+            .setNegativeButton("No", dialogClickListener).show();
+        
+        
+
+
+    }
 	  public void setTitle(CharSequence title) {
 		  CharSequence mTitle = title;
 	      getActivity().getActionBar().setTitle(mTitle);

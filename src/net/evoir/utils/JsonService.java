@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.evoir.avenue225.Constants;
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
 
@@ -24,18 +23,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class JsonService extends IntentService {
-	private static final String JSON_LINK = "http://www.avenue225.com/json";
-
-	//JSON Node names
-	private static final String TAG_LINK = "link";
-	private static final String TAG_TITLE = "title";
-	private static final String TAG_IMG = "image";
-	private static final String TAG_DESC = "description";
-	private static final String TAG_PUBDATE = "pubDate";
-	private static final String TAG_CONTENT = "content";
-	private static final String TAG_CATEGORY = "category";
-	private static final String TAG_CATEGORY_SLUG = "categorySlug";
-	private static String TAG ="mytag";
 	
 		
 	public JsonService() {
@@ -56,7 +43,7 @@ public class JsonService extends IntentService {
 	private void makeJsonArrayRequest() {
 		 
 		Log.v(Constants.TAG,"start making JsonRequest on JsonService.makeJsonArrayRequest()"); 
-        JsonArrayRequest req = new JsonArrayRequest(JSON_LINK,
+        JsonArrayRequest req = new JsonArrayRequest(Constants.JSON_LINK,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray posts) {
@@ -77,15 +64,15 @@ public class JsonService extends IntentService {
 
     						
     								// Storing each json item in variable
-    								String title = c.getString(TAG_TITLE);
-    								String link = c.getString(TAG_LINK);
-    								String description = c.getString(TAG_DESC);
-    								String content = c.getString(TAG_CONTENT);
-    								String pubDate = c.getString(TAG_PUBDATE);				
-    								String image = c.getString(TAG_IMG);
+    								String title = c.getString(Constants.TAG_TITLE);
+    								String link = c.getString(Constants.TAG_LINK);
+    								String description = c.getString(Constants.TAG_DESC);
+    								String content = c.getString(Constants.TAG_CONTENT);
+    								String pubDate = c.getString(Constants.TAG_PUBDATE);				
+    								String image = c.getString(Constants.TAG_IMG);
     								
-    								String category = c.getString(TAG_CATEGORY);
-    								String categorySlug = c.getString(TAG_CATEGORY_SLUG);
+    								String category = c.getString(Constants.TAG_CATEGORY);
+    								String categorySlug = c.getString(Constants.TAG_CATEGORY_SLUG);
     								Log.v("mytag","in makeJsonArrayRequest() title "+i+" is " +title);						
     						
     						
@@ -125,19 +112,18 @@ public class JsonService extends IntentService {
  
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
+                            /*Toast.makeText(getApplicationContext(),
                                     "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                            Log.v(Constants.TAG, "erron while downloading:"+e.getMessage());
+                                    Toast.LENGTH_LONG).show();*/
+                            Log.v(Constants.TAG, "error while downloading:"+e.getMessage());
                         }
  
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error: " + error.getMessage());
-                        Toast.makeText(getApplication(),
-                                error.getMessage(), Toast.LENGTH_SHORT).show();
+                        VolleyLog.d(Constants.TAG, "Error: " + error.getMessage());
+                        //Toast.makeText(getApplication(),error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
  

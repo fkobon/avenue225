@@ -9,6 +9,8 @@ import java.util.List;
 
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
+import net.evoir.utils.ConnectionDetector;
+import net.evoir.utils.Constants;
 import net.evoir.utils.JsonService;
 
 import com.j256.ormlite.dao.Dao;
@@ -36,7 +38,7 @@ public class SplashScreen extends Activity {
 	private static Dao<Post, String> dao;
 	private List<Post> postList;
 	// Splash screen timer
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 3000;
     
  
     @Override
@@ -107,7 +109,7 @@ public class SplashScreen extends Activity {
         		if (isConnectingToInternet) {
         			
         			//start downloading feed silently 
-        			Log.v(Constants.TAG, "launch startService()");
+        			//Log.v(Constants.TAG, "launch startService()");
         			startService();
         			
         			// check if there is at least one post in database
@@ -120,7 +122,7 @@ public class SplashScreen extends Activity {
         			    	queryBuilder.limit(10);
         					postList = queryBuilder.query();
         					if (postList.size() <1) {
-        						SPLASH_TIME_OUT = 6000;
+        						SPLASH_TIME_OUT = 5000;
         					}
         					/*else {
         						SPLASH_TIME_OUT = 4000;
