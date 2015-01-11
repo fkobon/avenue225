@@ -139,7 +139,7 @@ public class CategoryFragment extends Fragment {
 	        				postString.add(postLink);
 
 	                    }    
-	                    Log.v(Constants.TAG,"On CategoryFragment, stringList contains "+postString.size()+" items");
+	                    //Log.v(Constants.TAG,"On CategoryFragment, stringList contains "+postString.size()+" items");
 	                    
 	                    //post = postList.get(position);
 	                    

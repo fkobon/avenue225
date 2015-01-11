@@ -22,13 +22,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
        private DrawerLayout mDrawerLayout;
        private ActionBarDrawerToggle mDrawerToggle;
        private ListView mDrawerList;
@@ -165,6 +165,7 @@ public class MainActivity extends Activity {
 	        categories.add(new Category(android.R.drawable.ic_menu_send,"Send feedback",1,sendFragment));
 			categories.add(new Category(R.drawable.liked,"Favoris",2,favorisFragment));
 			categories.add(new Category(android.R.drawable.ic_popup_sync,"Synchroniser",1,syncFragment));
+			categories.add(new Category(android.R.drawable.ic_menu_preferences,"Settings"));
 	        
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -197,7 +198,7 @@ private void onDrawerClickListener() {
     mDrawerList.setOnItemClickListener(new OnItemClickListener(){
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        Log.v("mytag", "selectItem() was called");
+        //Log.v("mytag", "selectItem() was called");
 
     	selectItem(position);        	
     }
@@ -206,7 +207,7 @@ private void onDrawerClickListener() {
 
 private void loadHomeFragment() {
 	// TODO Auto-generated method stub
-	  Log.v("mytag", "loadHomeFragment() called");  
+	  //Log.v("mytag", "loadHomeFragment() called");  
       //home fragment
 	  
 	  
@@ -367,52 +368,60 @@ private boolean isDataBaseNotEmtpy() {
 
 public void selectItem(int position)
   {
-      mDrawerLayout.closeDrawers();
-      Bundle args = new Bundle();
-      args.putString("category", categories.get(position).getTitle());
-      args.putString("categorySlug", categories.get(position).getSlug());
-      args.putInt("categoryNumber", categories.get(position).getNumber(mContext));
-      
-      Fragment detail = new Fragment();
+	// if is clicked menu is Settings
+	if (position == categories.size()-1){
+		Intent i = new Intent(mContext,SettingsActivity.class);
+		startActivity(i);
+	}else {
+	      mDrawerLayout.closeDrawers();
+	      Bundle args = new Bundle();
+	      args.putString("category", categories.get(position).getTitle());
+	      args.putString("categorySlug", categories.get(position).getSlug());
+	      args.putInt("categoryNumber", categories.get(position).getNumber(mContext));
+	      
+	      Fragment detail = new Fragment();
 
-      if(categories.get(position).getType()==1){
-    	  detail = (Fragment) categories.get(position).getMethod();
-    	  
-    	  /*
-    	   * TODO
-    	   * refine the logic and clear unused lines
-    	   * */
-    	  if(categories.get(position).getNumber(mContext)<=0) {
-    		  setTitle(categories.get(position).getTitle());
-    		  
-    	  }else {
-    		  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getNumber(mContext)+")");
-    	  }
-    	  
-      }
-      else if(categories.get(position).getType()==2){
+	      if(categories.get(position).getType()==1){
 	    	  detail = (Fragment) categories.get(position).getMethod();
-	
-	          // change app menu title
-	          if(categories.get(position).getLikedNumber(mContext)<=0) {
-	        	  setTitle(categories.get(position).getTitle());
-	              
-	          }else {
-	        	  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getLikedNumber(mContext)+")");
-	          }
-	          
-    	  }
-      
-      else {
-    		  detail = new CategoryFragment();
-    	  }
-      detail.setArguments(args);
+	    	  
+	    	  /*
+	    	   * TODO
+	    	   * refine the logic and clear unused lines
+	    	   * */
+	    	  if(categories.get(position).getNumber(mContext)<=0) {
+	    		  setTitle(categories.get(position).getTitle());
+	    		  
+	    	  }else {
+	    		  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getNumber(mContext)+")");
+	    	  }
+	    	  
+	      }
+	      else if(categories.get(position).getType()==2){
+		    	  detail = (Fragment) categories.get(position).getMethod();
+		
+		          // change app menu title
+		          if(categories.get(position).getLikedNumber(mContext)<=0) {
+		        	  setTitle(categories.get(position).getTitle());
+		              
+		          }else {
+		        	  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getLikedNumber(mContext)+")");
+		          }
+		          
+	    	  }
+	      
+	      else {
+	    		  detail = new CategoryFragment();
+	    	  }
+	      detail.setArguments(args);
 
-      FragmentManager fragmentManager = getFragmentManager();
-      fragmentManager.beginTransaction()
-			      	 .replace(R.id.content_frame, detail)
-			      	 .commit();
-     
+	      FragmentManager fragmentManager = getFragmentManager();
+	      fragmentManager.beginTransaction()
+				      	 .replace(R.id.content_frame, detail)
+				      	 .commit();
+	     
+		
+	}
+
   }
  
 

@@ -35,7 +35,7 @@
         android:layout_below="@+id/reload_progress"
         android:background="@drawable/rounded_border_orange"
         android:textColor="@color/white"
-        android:textSize="14dp"
+        android:textSize="14sp"
         />
 
 </RelativeLayout>

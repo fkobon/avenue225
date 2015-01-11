@@ -260,6 +260,7 @@ public class SyncFragment extends Fragment {
 				List<Post> tempList=queryBuilder.query();
 					
 					// loop through database and search for brand new posts
+				if(tempList.size()>0) {
 					for(int i=0;i<tempList.size();i++) {
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 						try {
@@ -281,6 +282,8 @@ public class SyncFragment extends Fragment {
 
 						}
 					}
+				}
+
 
 				
 			} catch (SQLException e) {
@@ -292,23 +295,23 @@ public class SyncFragment extends Fragment {
 		}
 		@SuppressWarnings("deprecation")
 		public String lastPubDate() {
-			String pubDate=null;
-			
-				try {
-					dao = Model.getHelper(mContext).getDao(Post.class);
-					QueryBuilder<Post, String> queryBuilder =
-				    	dao.queryBuilder();
-						//get posts from database where status is -1 (brand new)
-						queryBuilder.orderBy("pubDate", false);
-						queryBuilder.limit(1);
-						List<Post> listPosts =queryBuilder.query();
-						if (listPosts.size()>0){
-							pubDate = listPosts.get(0).getPubDate().toString();
-						}
-						
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			String pubDate="1970-00-00 00:00:00";
+		
+			try {
+				dao = Model.getHelper(mContext).getDao(Post.class);
+				QueryBuilder<Post, String> queryBuilder =
+			    	dao.queryBuilder();
+					//get posts from database where status is -1 (brand new)
+					queryBuilder.orderBy("pubDate", false);
+					queryBuilder.limit(1);
+					List<Post> listPosts =queryBuilder.query();
+					if (listPosts.size()>0){
+						pubDate = listPosts.get(0).getPubDate().toString();
+					}
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				}
 	
 			return pubDate;

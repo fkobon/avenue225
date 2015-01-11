@@ -57,6 +57,8 @@ public class PostDetailActivity extends FragmentActivity {
         loadListAsync loadListAsync= new loadListAsync();
         loadListAsync.execute();
         
+        //set gradient background to action bar
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.gradient_orange));
         vpPager.setOnPageChangeListener(new OnPageChangeListener() {
         public void onPageScrollStateChanged(int state) {
 
@@ -111,7 +113,7 @@ public class PostDetailActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-    	if (item.getItemId() == R.id.action_list) {
+    	if (item.getItemId() == R.id.action_back) {
     		finish();
     	}
         if (item.getItemId() == R.id.action_share) {

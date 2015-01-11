@@ -10,6 +10,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	
+	
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" 
@@ -19,7 +24,7 @@
                 <!-- Splash screen -->
         <activity
             android:name=".SplashScreen"
-            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +36,7 @@
         <!-- Main activity -->
         <activity
             android:name=".MainActivity"            
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:configChanges="orientation|screenSize|keyboardHidden">  <!-- handling Listview refresh issue-->
             
             <meta-data android:name="android.app.searchable"
@@ -51,9 +56,25 @@
             android:name=".PostDetailActivity">
         </activity>
         
-        <!-- Service -->
-          <service android:name="net.evoir.utils.JsonService" />
-                 
-    </application>
+         <!-- Detail of the post -->
 
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            >
+        </activity>
+        
+        
+        <!-- Service --> 
+          <service android:name="net.evoir.utils.JsonService" />
+          <service android:name="net.evoir.utils.NotificationService" />
+     <!-- receiver -->
+    <receiver android:name="net.evoir.utils.BootReceiver">
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+    </receiver>
+          
+    </application>
+    
 </manifest>

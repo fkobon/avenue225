@@ -14,5 +14,13 @@ public class Constants {
 	public static final String TAG_CONTENT = "content";
 	public static final String TAG_CATEGORY = "category";
 	public static final String TAG_CATEGORY_SLUG = "categorySlug";
+	public static final int MINUTE_VALUE = 10;
+	public static String lastPubDate;
+	public static void setLastPubDate(String newLastPubDate) {
+		// TODO Auto-generated method stub
+		lastPubDate = newLastPubDate;
+		
+	}
+
 
 }

@@ -12,13 +12,19 @@ import net.evoir.avenue225.objects.Post;
 import net.evoir.utils.ConnectionDetector;
 import net.evoir.utils.Constants;
 import net.evoir.utils.JsonService;
+import net.evoir.utils.NotificationService;
+import net.evoir.utils.VolleyRequest;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -27,6 +33,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -38,7 +47,7 @@ public class SplashScreen extends Activity {
 	private static Dao<Post, String> dao;
 	private List<Post> postList;
 	// Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 2000;
     
  
     @Override
@@ -58,13 +67,37 @@ public class SplashScreen extends Activity {
 		sloganText.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 		
 		
+		//notifyTemp(); //for test purpose only 
 		
+		//launch notification service
+		startNotificationService();
+
 		//prepare the Async task
 		loadAsync loadAsync = new loadAsync();
 		loadAsync.execute();
 		
     }
-
+    
+    public void startNotificationService() {
+    	
+    	Log.v(Constants.TAG,"startNotificationService() called");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int minutes = Integer.parseInt(prefs.getString("update_interval", "1"));
+        //int minutes = 1;
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent i = new Intent(this, NotificationService.class);
+        PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+        am.cancel(pi);
+        // by my own convention, minutes <= 0 means notifications are disabled
+        if (minutes > 0) {
+            am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + minutes*Constants.MINUTE_VALUE*1000,
+                minutes*Constants.MINUTE_VALUE*1000, pi);
+        }
+    
+        
+    	//to stuff
+    }
 	public String getVersion(){
 		PackageManager manager = mContext.getPackageManager();
 		PackageInfo info;
@@ -122,7 +155,7 @@ public class SplashScreen extends Activity {
         			    	queryBuilder.limit(10);
         					postList = queryBuilder.query();
         					if (postList.size() <1) {
-        						SPLASH_TIME_OUT = 5000;
+        						SPLASH_TIME_OUT = 8000;
         					}
         					/*else {
         						SPLASH_TIME_OUT = 4000;

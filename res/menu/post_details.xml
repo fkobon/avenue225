@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_list"
+        android:id="@+id/action_back"
         android:orderInCategory="100"
         android:showAsAction="always|withText"
         android:title="List"
-        android:icon="@drawable/previous"
+        android:icon="@android:drawable/ic_menu_revert"
         
         />
     <!--
@@ -38,6 +38,6 @@
             android:id="@+id/action_share"
             android:showAsAction="always|withText"
             android:title="Share"
-            android:icon="@drawable/share"
+            android:icon="@android:drawable/ic_menu_share"
       />
 </menu>
