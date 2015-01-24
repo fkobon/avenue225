@@ -69,12 +69,14 @@ public class SplashScreen extends Activity {
 		
 		//notifyTemp(); //for test purpose only 
 		
-		//launch notification service
-		startNotificationService();
+		
 
 		//prepare the Async task
 		loadAsync loadAsync = new loadAsync();
 		loadAsync.execute();
+		//launch notification service
+		startNotificationService();
+
 		
     }
     

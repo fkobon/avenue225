@@ -130,10 +130,10 @@ public class Category {
 	}
 
 	// for TYPE_DEFAULT
-	public Category(int image,String title) {
+	public Category(int image,String title,int type) {
 		this.image = image;
 		this.title= title;
-		this.type= 3;
+		this.type= type;
     }
 
 

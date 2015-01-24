@@ -16,6 +16,7 @@ import net.evoir.avenue225.fragments.SendFragment;
 import net.evoir.avenue225.fragments.SyncFragment;
 import net.evoir.avenue225.objects.Category;
 import net.evoir.avenue225.objects.Post;
+import net.evoir.utils.Constants;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
@@ -59,8 +60,7 @@ public class MainActivity extends Activity{
 		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		 
-		  // Set the drawer toggle as the DrawerListener
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
 
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 	
@@ -91,16 +91,24 @@ public class MainActivity extends Activity{
           R.string.app_name // nav drawer close - description for accessibility
           ){
               public void onDrawerClosed(View view) {
-
+            	  
+            	  //Log.v(Constants.TAG, "onDrawerClosed() was called");
               }
    
               public void onDrawerOpened(View drawerView) {
-
-    	  
+            	  //Log.v(Constants.TAG, "onDrawerOpened() was called");
+            	  
+              }
+              public void onDrawerStateChanged(int newState) {
+            	  
+            	Log.v(Constants.TAG, "onDrawerStateChanged() was called");
+              	reloadDrawerCategories();
               }
       
        
   };
+  	// Set the drawer toggle as the DrawerListener
+  	mDrawerLayout.setDrawerListener(mDrawerToggle);
           // set onClickListener on Drawer
           onDrawerClickListener();
           
@@ -109,21 +117,20 @@ public class MainActivity extends Activity{
               loadHomeFragment();
           }
           
-
+          
   	}
   @Override
   protected void onPause()
   {		 
 	  super.onPause();
 	  savedPosition = mDrawerList.getFirstVisiblePosition();
-	  reloadDrawerCategories();
+ 
   }
   
   @Override
   public void onResume() {
   super.onResume();
   // get index from shared preferences
-
   if(mDrawerList != null){
       if(mDrawerList.getCount() > savedPosition) {
 
@@ -150,7 +157,7 @@ public class MainActivity extends Activity{
 	        for(int i = 0; i < listPosts.size(); i++){
 	        	
 				//Log.v("mytag","category "+ i+" is "+listPosts.get(i).getCategory());
-				Category categoryItem = new Category(R.drawable.logo,listPosts.get(i).getCategory());
+				Category categoryItem = new Category(R.drawable.logo,listPosts.get(i).getCategory(),-1);
 	            categoryItem.setSlug(listPosts.get(i).getCategorySlug());
 				categories.add(categoryItem);
 	            
@@ -159,13 +166,13 @@ public class MainActivity extends Activity{
 	        Fragment aboutFragment = new AboutFragment();
 	        Fragment favorisFragment = new FavorisFragment();
 	        Fragment sendFragment = new SendFragment();
-	        Fragment syncFragment = new SyncFragment();
+	        //Fragment syncFragment = new SyncFragment();
 	        categories.add(new Category("Options",0));
 	        categories.add(new Category(android.R.drawable.ic_menu_help,"About",1,aboutFragment));
 	        categories.add(new Category(android.R.drawable.ic_menu_send,"Send feedback",1,sendFragment));
 			categories.add(new Category(R.drawable.liked,"Favoris",2,favorisFragment));
-			categories.add(new Category(android.R.drawable.ic_popup_sync,"Synchroniser",1,syncFragment));
-			categories.add(new Category(android.R.drawable.ic_menu_preferences,"Settings"));
+			//categories.add(new Category(android.R.drawable.ic_popup_sync,"Synchroniser",1,syncFragment));
+			categories.add(new Category(android.R.drawable.ic_menu_preferences,"Settings",3));
 	        
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -198,7 +205,7 @@ private void onDrawerClickListener() {
     mDrawerList.setOnItemClickListener(new OnItemClickListener(){
     @Override
     public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        //Log.v("mytag", "selectItem() was called");
+        
 
     	selectItem(position);        	
     }
@@ -368,7 +375,7 @@ private boolean isDataBaseNotEmtpy() {
 
 public void selectItem(int position)
   {
-	// if is clicked menu is Settings
+	// if the last menu Item is clicked
 	if (position == categories.size()-1){
 		Intent i = new Intent(mContext,SettingsActivity.class);
 		startActivity(i);
@@ -380,7 +387,8 @@ public void selectItem(int position)
 	      args.putInt("categoryNumber", categories.get(position).getNumber(mContext));
 	      
 	      Fragment detail = new Fragment();
-
+	      
+	      // if the type is Custom (1 = custom eg:About,Favoris etc)
 	      if(categories.get(position).getType()==1){
 	    	  detail = (Fragment) categories.get(position).getMethod();
 	    	  
@@ -388,24 +396,25 @@ public void selectItem(int position)
 	    	   * TODO
 	    	   * refine the logic and clear unused lines
 	    	   * */
-	    	  if(categories.get(position).getNumber(mContext)<=0) {
+	    	  /*if(categories.get(position).getNumber(mContext)<=0) {
 	    		  setTitle(categories.get(position).getTitle());
 	    		  
 	    	  }else {
 	    		  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getNumber(mContext)+")");
-	    	  }
+	    	  }*/
 	    	  
 	      }
+	   // if the type is Category (2 = normal category)
 	      else if(categories.get(position).getType()==2){
 		    	  detail = (Fragment) categories.get(position).getMethod();
 		
 		          // change app menu title
-		          if(categories.get(position).getLikedNumber(mContext)<=0) {
+		          /*if(categories.get(position).getLikedNumber(mContext)<=0) {
 		        	  setTitle(categories.get(position).getTitle());
 		              
 		          }else {
 		        	  setTitle(categories.get(position).getTitle()+" ("+categories.get(position).getLikedNumber(mContext)+")");
-		          }
+		          }*/
 		          
 	    	  }
 	      

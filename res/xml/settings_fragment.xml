@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	 <PreferenceCategory android:title="@string/update_section_title">
 	  <CheckBoxPreference android:title="@string/activate_update_title"
-	   android:defaultValue="false" android:summary="@string/activate_update_desc"
+	   android:defaultValue="true" android:summary="@string/activate_update_desc"
 	   android:key="activate_update" />
 	  
 	  
@@ -15,13 +15,13 @@
  
 	 <PreferenceCategory android:title="@string/notifications_section_title">
 	  <CheckBoxPreference android:title="@string/activate_notifications_title"
-	   android:defaultValue="false" android:summary="@string/activate_notifications_desc"
+	   android:defaultValue="true" android:summary="@string/activate_notifications_desc"
 	   android:key="activate_notifications" />
 	   <RingtonePreference android:name="@string/ringtone_title"
 	   android:summary="@string/ringtone_desc" android:title="@string/notifications_section_title"
 	   android:key="ringtone" />
 	    <CheckBoxPreference android:title="@string/activate_vibrate_title"
-	   android:defaultValue="false" android:summary="@string/activate_vibrate_desc"
+	   android:defaultValue="true" android:summary="@string/activate_vibrate_desc"
 	   android:key="activate_vibrate" />
 	 </PreferenceCategory>
 
@@ -29,8 +29,10 @@
 	     <PreferenceScreen
 	        android:title="@string/edition_title"
 	        android:summary="@string/edition_desc">
-	    <intent android:action="android.intent.action.VIEW"
-	            android:data="@string/edition_desc" />
+	    <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://avenue225.com"
+        />
 	    </PreferenceScreen>
 	</PreferenceCategory>
 	
@@ -38,8 +40,11 @@
 	     <PreferenceScreen
 	        android:title="@string/conception_title"
 	        android:summary="@string/conception_desc">
-	    <intent android:action="android.intent.action.VIEW"
-	            android:data="@string/conception_desc" />
+	    <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://e-voir.net"
+        />
+
 	    </PreferenceScreen>
 	</PreferenceCategory>
 

@@ -75,14 +75,14 @@ public class CategoryFragment extends Fragment {
 				        categorySlug = getArguments().getString("categorySlug");   
 				        //show ListView 
 				        
-				        
-				     // change app menu title
-				    	  if(categoryNumber<=0) {
+					     // change app menu title
+				        setTitle(category);
+				    	  /*if(categoryNumber<=0) {
 				    		  setTitle(category);
 				    		  
 				    	  }else {
 				    		  setTitle(category+" ("+categoryNumber+")");
-				    	  }
+				    	  }*/
 				    	hasArguments = true;  
 			    	    loadFragments.execute();	  
 				        

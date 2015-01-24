@@ -20,9 +20,11 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
 	private ArrayList<Category> menu;
 	private Context context;
+	private static final int TYPE_CATEGORY = -1;
 	private static final int TYPE_HEADER = 0;
 	private static final int TYPE_CUSTOM = 1;
 	private static final int TYPE_FAVORIZED = 2;
+	private static final int TYPE_SETTINGS = 3;
 
 	private LayoutInflater vi;
 	private int number;
@@ -65,6 +67,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
+		//if type is Favoris
 		if (menu.get(position).getType()==TYPE_FAVORIZED) {
 			   number = menu.get(position).getLikedNumber(context);
 
@@ -72,15 +75,32 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 			   number = menu.get(position).getNumber(context);
 
 		}
-	   
-       int type = getItemViewType(position);
-       if (type==TYPE_HEADER){
+	   //if type is HEADER (Menu, Options etc)
+       if (getItemViewType(position)==TYPE_HEADER){
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = View.inflate(context, R.layout.header_view,null);
 				holder.title = (TextView) convertView.findViewById(R.id.textHeader);
 				holder.title.setText(menu.get(position).getTitle());
+				convertView.setTag(holder);
+				//convertView.setClickable(false);
+				
+			} else {
+				holder = (ViewHolder) convertView.getTag();
 				holder.title.setText(menu.get(position).getTitle());
+
+			}
+
+       }
+		//if type is Settings
+       if (menu.get(position).getType()==TYPE_SETTINGS){
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = View.inflate(context, R.layout.category_list_item, null);
+				holder.title = (TextView) convertView.findViewById(R.id.drawerTitle_item);
+				holder.title.setText(menu.get(position).getTitle());
+				holder.image = (ImageView) convertView.findViewById(R.id.drawerImage_item);
+				holder.image.setImageResource(menu.get(position).getImage());
 				convertView.setTag(holder);
 				//convertView.setClickable(false);
 				

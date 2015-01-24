@@ -47,17 +47,18 @@ public final class R {
         public static final int ic_drawer1=0x7f020007;
         public static final int ic_drawer2=0x7f020008;
         public static final int ic_launcher=0x7f020009;
-        public static final int liked=0x7f02000a;
-        public static final int line_horizontal=0x7f02000b;
-        public static final int logo=0x7f02000c;
-        public static final int previous=0x7f02000d;
-        public static final int radius_corner=0x7f02000e;
-        public static final int rounded_border_grey=0x7f02000f;
-        public static final int rounded_border_orange=0x7f020010;
-        public static final int scrollbar_vertical_thumb=0x7f020011;
-        public static final int share=0x7f020012;
-        public static final int trans=0x7f020013;
-        public static final int unliked=0x7f020014;
+        public static final int imageview_back=0x7f02000a;
+        public static final int liked=0x7f02000b;
+        public static final int line_horizontal=0x7f02000c;
+        public static final int logo=0x7f02000d;
+        public static final int previous=0x7f02000e;
+        public static final int radius_corner=0x7f02000f;
+        public static final int rounded_border_grey=0x7f020010;
+        public static final int rounded_border_orange=0x7f020011;
+        public static final int scrollbar_vertical_thumb=0x7f020012;
+        public static final int share=0x7f020013;
+        public static final int trans=0x7f020014;
+        public static final int unliked=0x7f020015;
     }
     public static final class id {
         public static final int action_back=0x7f0a0020;
@@ -67,6 +68,7 @@ public final class R {
         public static final int action_sync=0x7f0a001f;
         public static final int content_frame=0x7f0a0007;
         public static final int copyrightText=0x7f0a0015;
+        public static final int detailImage=0x7f0a000a;
         public static final int drawerImage_item=0x7f0a0002;
         public static final int drawerListItemWrapper=0x7f0a0000;
         public static final int drawerNumber=0x7f0a0005;
@@ -80,7 +82,7 @@ public final class R {
         public static final int logoText=0x7f0a0016;
         public static final int menu_delete=0x7f0a001e;
         public static final int menu_edit=0x7f0a001d;
-        public static final int postDescription_detail=0x7f0a000a;
+        public static final int postDescription_detail=0x7f0a000b;
         public static final int postDescription_item=0x7f0a0012;
         public static final int postDueDate_item=0x7f0a0013;
         public static final int postListItemWrapper=0x7f0a000d;
@@ -93,7 +95,6 @@ public final class R {
         public static final int sloganText=0x7f0a0017;
         public static final int textHeader=0x7f0a000c;
         public static final int versionText=0x7f0a0018;
-        public static final int visitLink=0x7f0a000b;
         public static final int vpPager=0x7f0a0009;
     }
     public static final class layout {

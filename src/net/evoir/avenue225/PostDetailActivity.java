@@ -11,6 +11,7 @@ import net.evoir.avenue225.objects.Post;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
+import com.squareup.picasso.Picasso;
 
 
 import android.app.ProgressDialog;
@@ -26,6 +27,8 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -33,6 +36,7 @@ public class PostDetailActivity extends FragmentActivity {
 	private Post post;
 	private Context mContext = this;
 	private Dao<Post, String> dao;
+	private int STATUS_UNREAD =0;
 	private int STATUS_READ =1;
 	private int STATUS_LIKED =2;
 	
@@ -74,14 +78,25 @@ public class PostDetailActivity extends FragmentActivity {
         }
 
         public void onPageSelected(int position) {
+        
+        	
         	String currentPostLink= postList.get(position).getLink();
         	// we need to querry the dabase to get the current post's real data
         	try {
         		dao = Model.getHelper(mContext).getDao(Post.class);
         		
                 post = dao.queryForId(currentPostLink);
-
                 
+                
+                //check if article has already been read
+                if(post.getStatus()==STATUS_UNREAD) {
+                	post.setStatus(STATUS_READ, mContext);
+                }
+                
+                
+                //handle heart icon (liked/ unliked)
+                showHeart(menu);
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,9 +120,10 @@ public class PostDetailActivity extends FragmentActivity {
         this.getMenuInflater().inflate(R.menu.post_details, menu);
         
         this.menu = menu;
-        showHeart(menu);
-
-        
+        if(null!=menu)
+        	{	
+        		showHeart(menu);
+        	}
         return true;
     }
     @Override

@@ -60,7 +60,7 @@ public class PostAdapter extends BaseAdapter {
 		String itemImage =items.get(position).getImage();
 		//Log.v(Constants.TAG,"imageItem "+position+ " is"+itemImage);
 		if (itemImage != null && !itemImage.isEmpty()){
-			Picasso.with(context).load(itemImage).placeholder(android.R.drawable.ic_menu_camera).error(android.R.drawable.ic_menu_camera).resize(120,80).centerCrop().into(holder.image);	
+			Picasso.with(context).load(itemImage).placeholder(android.R.drawable.ic_menu_camera).error(R.drawable.imageview_back).resize(300,200).centerCrop().into(holder.image);	
 		}
 		//Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(holder.image);
 

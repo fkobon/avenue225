@@ -2,8 +2,12 @@ package net.evoir.avenue225.fragments;
 import java.sql.SQLException;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import com.j256.ormlite.dao.Dao;
+import com.squareup.picasso.Picasso;
+
 import net.evoir.avenue225.R;
 import net.evoir.avenue225.db.Model;
 import net.evoir.avenue225.objects.Post;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebSettings.LayoutAlgorithm;
+import android.widget.ImageView;
 import android.widget.TextView;
 @SuppressWarnings("deprecation")
 public class DetailFragment extends Fragment {
@@ -85,16 +90,34 @@ public class DetailFragment extends Fragment {
             Log.e("mytag", "on PostDetailActivity error is: "+ e.getMessage());
 
         	}
-		
+            
+        	ImageView detailImage = (ImageView) view.findViewById(R.id.detailImage);
+        	detailImage.setVisibility(View.GONE);
+        	
+        	//if getImage is not null
+        	if (post.getImage()!= null && !post.getLink().isEmpty()) {
+        		detailImage.setVisibility(View.VISIBLE);
+    			Picasso.with(mContext).load(post.getImage()).placeholder(R.drawable.imageview_back).into(detailImage);
+    			//detailImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.drop_shadow));
+
+        	}
+            
 			// TODO Auto-generated method stub
         	webView = (WebView) view.findViewById(R.id.postDescription_detail);
             DateFormat dateFormat= new DateFormat();
     		
             
+            Document doc = Jsoup.parse(post.getContent().toString());
+            Elements imgs = doc.getElementsByTag("img");
+            if(imgs.size()>0){
+                doc.select("img").first().remove();
+            	
+            }
+            
             content = new StringBuilder()
             .append("<h2 class='title' style='color:#FF8000'>" + post.getTitle() + "</h2>\r\n")
             .append("<span style='padding:3px 5px;background:#000;color:#FFF;font-size:0.8em;'>" +getResources().getString(R.string.app_name)+ " / "+dateFormat.Format(post.getPubDate()) + "</span>")
-            .append(Jsoup.parse(post.getContent()).toString().replaceAll("<[a-zA-Z0-9]*></[a-zA-Z0-9]*>", ""))
+            .append(doc.toString().replaceAll("<[a-zA-Z0-9]*></[a-zA-Z0-9]*>", ""))
             .append("<br><br><a href="+post.getLink().toString()+
             		" style='padding:8px 12px;background:#cecece;" +
             		"color:#000;font-size:0.9em;text-align:center;" +
@@ -108,11 +131,11 @@ public class DetailFragment extends Fragment {
             webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
             
             
-            if (status==STATUS_UNREAD) {
+/*            if (status==STATUS_UNREAD) {
             	post.setStatus(STATUS_READ,mContext);
                // Log.v("mytag", status+" was unread, now status is "+status);
 
-            }
+            }*/
 		}
     
 
