@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape>
+        <gradient
+            android:angle="0"
+            android:startColor="#ff9f2d"
+            android:endColor="#d16107"
+            android:type="linear" />
+    </shape>
+</item>
+</selector><!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/drawable-mdpi/gradient_orange.xml -->

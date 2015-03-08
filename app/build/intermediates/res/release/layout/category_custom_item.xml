@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/drawerListItemWrapper"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_toRightOf="@+id/linearLayout2"
+     android:orientation="vertical" 
+    android:padding="5dp"
+    android:layout_marginLeft="8dp"
+     >
+ 
+
+    <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical" 
+       android:layout_marginBottom="5dp"
+    >
+ <View
+       android:layout_width="match_parent"
+       android:layout_height="0.5dp"
+       android:layout_alignParentTop="true"
+       android:background="@color/ligth_grey" />
+</LinearLayout>
+ <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical" >
+  <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    
+    >
+        
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/drawerImage_item"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitXY"
+             >
+        </ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/linearLayout2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/drawerTitle_item"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+			android:padding="5sp"
+             />
+
+    </LinearLayout>
+
+      
+</RelativeLayout>
+ </LinearLayout>
+
+  </LinearLayout><!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/layout/category_custom_item.xml -->

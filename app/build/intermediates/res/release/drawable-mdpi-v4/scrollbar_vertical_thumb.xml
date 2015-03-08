@@ -1,0 +1,12 @@
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <gradient
+        android:angle="0"
+        android:startColor="#842200"
+        android:endColor="#7a2e03"
+        android:type="linear" />
+        <size android:width="4dp" />  
+        <corners android:radius="1dp" />      
+        
+</shape><!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/drawable-mdpi/scrollbar_vertical_thumb.xml -->

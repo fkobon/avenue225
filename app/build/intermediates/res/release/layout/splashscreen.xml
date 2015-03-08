@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+   	android:background="@drawable/gradient_orange"
+   	>
+    
+ 
+<!--
+
+<ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher" 
+>  
+</ImageView>  
+-->
+
+        <TextView
+            android:id="@+id/logoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sloganText"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:shadowColor="@color/orange_black"
+            android:shadowRadius="1"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+       		
+       		<TextView
+            android:id="@+id/sloganText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            
+            android:text="@string/splash_slogan"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/versionText"
+            android:textSize="15sp"
+            android:paddingTop="70dp"
+            
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/versionText"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="30dp"
+            
+            
+            />
+<!-- hidden -->
+
+        <TextView
+            android:id="@+id/versionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="@color/orange_black"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="1"
+            android:text="@string/version_text"
+            android:textColor="@color/black"
+            android:textSize="15sp" 
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="30dp"
+            />
+
+
+</RelativeLayout><!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/layout/splashscreen.xml -->

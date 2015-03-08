@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".AboutFragment" 
+    android:padding="10dp"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".AboutFragment" 
+    android:padding="10dp"
+    >
+
+    <ProgressBar
+        android:id="@+id/reload_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+         />
+
+    <Button
+        android:id="@+id/reload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/reload_text" 
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/reload_progress"
+        android:background="@drawable/rounded_border_orange"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        />
+
+</RelativeLayout>
+    
+</LinearLayout>
+<!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/layout/sync_fragment.xml -->

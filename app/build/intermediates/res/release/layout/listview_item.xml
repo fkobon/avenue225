@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/postListItemWrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="6dp"
+>
+<RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="110dp"
+            android:layout_height="70dp"
+            >
+        <!-- hidden
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/image_item"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            />
+            -->
+               <!-- Thumbnail Image -->
+
+        <ImageView
+            android:id="@+id/image_item"
+            android:layout_width="110dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            >
+        </ImageView>
+        <ProgressBar
+            android:layout_width="15dip"
+            android:layout_height="15dip"
+            android:id="@+id/progress"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+        />
+    </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/linearLayout2"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/postTitle_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textColor="@color/orange_black"
+            android:textSize="15sp"
+            android:maxLines="2"
+             />
+		<TextView
+            android:id="@+id/postDescription_item"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:maxLines="2"
+             />
+
+    </LinearLayout>
+</RelativeLayout>
+    <TextView
+        android:id="@+id/postDueDate_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:textSize="11sp"
+        android:textColor="@color/grey" />
+</LinearLayout><!-- From: file:/E:/SCRIPTS/JAVA/ANDROID/Android%20Studio/Projects/Avenue225/app/src/main/res/layout/listview_item.xml -->

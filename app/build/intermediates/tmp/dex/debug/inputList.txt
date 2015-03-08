@@ -1,0 +1,7 @@
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\classes\debug
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\ormlite-android-4.41-e44b34fb08f49abc8103b939730876653a17cbe9.jar
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\volley-676c6a172c908a59035af5bb14b2bcc30316a214.jar
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\android-query-0.25.9-876375f64ce63001464bb73e8868491cf778a146.jar
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\jsoup-1.7.3-991243c7223a497bfa64b3bad4582948a77fd99c.jar
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\ormlite-core-4.41-7a64dbb294d0ba76f06a1a4b2e73495d77d73ca5.jar
+E:\SCRIPTS\JAVA\ANDROID\Android Studio\Projects\Avenue225\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-3bb9c55202d9dfe87a3157c33e8eb29d9cb822bf.jar
